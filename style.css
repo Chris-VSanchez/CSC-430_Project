@@ -3,8 +3,14 @@
 
 body
 {
+    display: flex;
+    flex-direction: column;
+    
     font-family: Sen, sans-serif;
-    background-color: #121212;
+    
+    background-color: #fdfffc;
+
+    min-height: 100vh;
 }
 
 /* Website Logo */
@@ -12,132 +18,170 @@ body
 {
     width: 30px;
     height: 30px;
-    object-fit: contain;
 }
 
-/* Navbar Styling */
-.navbar
+.navbar-brand
 {
-    background-color: #0f0f0f !important;
+    display: flex;
+
+    align-items: center;
+    gap: 5px;
 }
 
-.navbar .navbar-brand 
+/* Custom Navbar */
+.navbar-3ce
 {
+    display: flex;
+
+    color: #fdfffc;
+    background-color: #0b0705;
+
     font-size: 1.25rem;
-    font-weight: 500;
-    color: #ffffff;
+    
+    align-items: center;
 }
 
-.navbar .navbar-nav .nav-link 
+.navbar-3ce .logo
 {
-    font-size: 1.25rem;
-    font-weight: 500;
-    color: #bbbbbb;
+    transform: translateY(0.6px);
 }
 
-/* Text on active link and on hover / focus */
-.navbar .navbar-nav .nav-link.active,
-.navbar .navbar-nav .nav-link:hover,
-.navbar .navbar-nav .nav-link:focus 
+.navbar-3ce a
 {
-    color: #ffffff;
+    color: #fdfffc;
 }
 
-/* Navbar Button */
-.nav-btn
+/* Custom Button */
+.btn-3ce
 {
-    border-radius: 6px;
+    color: #fdfffc;
     background-color: #d9043d;
+
+    border: none;
+    border-radius: 10px;
+
+    text-align: center;
 }
 
-.navbar .navbar-nav .nav-link.nav-btn
+.btn-3ce:hover, .btn-3ce:focus
 {
-    color: #ffffff;
-}
-
-.nav-btn:hover
-{
-    background-color: #b00333;
+    color: #fdfffc;
+    background-color: #b80334;
 }
 
 /* Hero Section */
-.hero 
+.hero-background
 {
-    padding: 100px 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 70vh;
+
+    background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    padding: 3rem 1rem;
 }
 
-.hero h1 
+.hero-card
+{
+    background-color: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(6px) saturate(102%);
+    -webkit-backdrop-filter: blur(6px) saturate(102%);
+
+    padding: 3rem;
+    margin-bottom: 1.5rem;
+
+    max-width: 900px;
+    width: 100%;
+
+    text-align: center;
+
+    border: 1px solid rgba(209, 213, 219, 0.3);
+    border-radius: 12px;
+}
+
+.hero-card a
+{
+    display: block;
+
+    margin: auto;
+
+    max-width: fit-content;
+}
+
+.hero-title
 {
     font-size: 3rem;
-    color: #ffffff;
+    font-weight: 500;
+
+    margin-bottom: 1rem;
 }
 
-.hero p 
+.hero-text
 {
-    color: #bbbbbb;
-    margin: 20px 0;
+    font-size: 1.25rem;
+
+    line-height: 1.6;
 }
 
-.hero-img 
+/* Feature Section */
+.feature-box
 {
-    color: #ffffff;
-    max-width: 100%;
-    opacity: 0.9;
+    background-color: #fdfffc;
+    padding: 2rem;
+
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 12px;    
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+
+    height: 100%;
 }
 
-/* Features Section */
-.features 
+.feature-box:hover
 {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 30px;
-    padding: 80px 10%;
-    background-color: #181818;
-    align-items: stretch;
-}
-
-.feature-card 
-{
-    border: 1px solid #2c2c2c;
-    border-radius: 12px;
-    padding: 30px;
-    background-color: #222222;
-    transition: transform 0.3s ease;
-    will-change: transform;
-    display: grid;
-    grid-template-rows: auto 1fr;
-    row-gap: 15px;
-}
-
-.feature-card:hover 
-{
-    border-color: #ff0049;
+    background-color: #d7e6ff;
+    border-color: #5a93ff;
+    
     transform: translateY(-5px);
 }
 
-.feature-card h3 
+.feature-box h3
 {
-    color: #ff0049;
-    min-height: 2.6em;
-    margin: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1.4rem;
 }
 
-.feature-card p 
+.feature-box p
 {
-    color: #bbbbbb;
-    margin: 0;
+    font-size: 1rem;
+    color: #505050;
 }
 
 /* Footer */
 footer 
 {
+    background-color: #0b0705;
+    color: #fdfffc;
+
+    margin-top: auto;
+
     text-align: center;
-    padding: 10px;
-    background-color: #1a1a1a;
-    color: #888888;
+    
+    padding: 10px;    
 }
 
 footer p
 {
     margin: 0;
+}
+
+/* Responsive View */
+@media( max-width: 992px)
+{
+
 }
