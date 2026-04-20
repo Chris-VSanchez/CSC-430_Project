@@ -1,0 +1,115 @@
+/* Wrapper */
+.signup-wrapper 
+{
+    min-height: 100vh;
+
+    padding: 2rem;
+}
+
+/* Card */
+.signup-card 
+{
+    background-color: #ffffff;
+    
+    padding: 2.5rem;
+
+    border-radius: 16px;
+    border: 1px solid rgba(0,0,0,0.05);
+
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+/* Header */
+.signup-header h2 
+{
+    font-weight: 600;
+    
+    margin-bottom: 0.25rem;
+}
+
+.signup-header p 
+{
+    font-size: 0.95rem;
+}
+
+/* Inputs */
+.input-3ce-alt 
+{   
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+ 
+    padding: 12px;
+
+    transition: all 0.2s ease;
+}
+
+.input-3ce-alt:focus 
+{
+    border-color: #d9043d;
+
+    box-shadow: 0 0 0 0.15rem rgba(217, 4, 61, 0.15);
+}
+
+/* Divider */
+.divider 
+{
+    color: #888888;
+
+    position: relative;
+    
+    font-size: 0.85rem;
+}
+
+.divider::before, .divider::after 
+{
+    background-color: #e0e0e0;
+    
+    position: absolute;
+    
+    content: "";
+    
+    top: 50%;
+   
+    width: 40%;
+    height: 1px;
+}
+
+.divider::before 
+{
+    left: 0;
+}
+
+.divider::after 
+{
+    right: 0;
+}
+
+/* Social Button */
+.social-btn 
+{
+    background-color: #f5f5f5;
+    
+    border-radius: 10px;
+    
+    padding: 10px;
+}
+
+.social-btn:hover 
+{
+    background-color: #eaeaea;
+}
+
+/* Link */
+.link-3ce 
+{
+    color: #d9043d;
+
+    text-decoration: none;
+}
+
+.link-3ce:hover 
+{
+    color: #b80334;
+
+    text-decoration: underline;
+}

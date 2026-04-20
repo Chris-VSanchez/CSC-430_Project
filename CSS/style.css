@@ -5,7 +5,7 @@ body
 {
     display: flex;
     flex-direction: column;
-    
+
     font-family: Sen, sans-serif;
     
     background-color: #fdfffc;
@@ -76,7 +76,7 @@ body
     justify-content: center;
     align-items: center;
 
-    min-height: 70vh;
+    min-height: 50vh;
 
     background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
     background-position: center;
@@ -160,6 +160,15 @@ body
 {
     font-size: 1rem;
     color: #505050;
+}
+
+/* Sign Up Section */
+.signup-image 
+{
+    background: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622') no-repeat center center;
+    background-size: cover;
+
+    min-height: 250px;
 }
 
 /* Footer */
