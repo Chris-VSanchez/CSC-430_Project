@@ -16,6 +16,8 @@
     border-radius: 16px;
     border: 1px solid rgba(0,0,0,0.05);
 
+    height: 100%;
+
     box-shadow: 0 15px 40px rgba(0,0,0,0.08);
 }
 
