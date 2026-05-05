@@ -1,0 +1,118 @@
+const eventList = document.getElementById("events");
+const SESSION_KEY = "3ce_supabase_session";
+const SUPABASE_URL = "https://wvcrlyrdahimcennyhec.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind2Y3JseXJkYWhpbWNlbm55aGVjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMTYwNTYsImV4cCI6MjA5MTU5MjA1Nn0.Lk5otEqUcyJvlxX3HrSbqsTfVvdpqhAvgzMl35pUcIE";
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+function getSession()
+{
+    return JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+}
+
+function requireSession()
+{
+    if (!getSession())
+    {
+        window.location.href = "registration.html";
+        return false;
+    }
+
+    return true;
+}
+
+const isAuthenticated = requireSession();
+
+function formatDateTime(event)
+{
+    if (event.event_date)
+        return event.event_date;
+
+    const date = event.date || "TBA";
+    const time = event.time || "TBA";
+    return `${date} • ${time}`;
+}
+
+async function deleteEvent(id)
+{
+    if (!window.confirm("Delete this event?"))
+        return;
+
+    const session = getSession();
+    if (!session?.user?.id) throw new Error("User not authenticated");
+
+    const { error } = await supabaseClient
+        .from("events")
+        .delete()
+        .eq("id", id)
+        .eq("user_id", session.user.id);
+
+    if (error) throw new Error(error.message || "Unable to delete event");
+
+    await loadEvents();
+}
+
+async function loadEvents()
+{
+    eventList.innerHTML = "";
+
+    try
+    {
+        const session = getSession();
+        if (!session?.user?.id) throw new Error("User not authenticated");
+
+        const { data: events, error } = await supabaseClient
+            .from("events")
+            .select("*")
+            .eq("user_id", session.user.id)
+            .order("event_date", { ascending: true });
+
+        if (error) throw new Error(error.message || "Failed to load events");
+
+        if (!events || !events.length)
+        {
+            eventList.innerHTML = '<p class="text-center text-muted w-100">No events found yet. Create one to get started.</p>';
+            return;
+        }
+
+        for (const event of events)
+        {
+            const eventCard = `
+                <div class = "event-card">
+                    <img class = "event-image" src = "${event.image || ""}" alt = "${event.title || "Event image"}">
+                    <div class = "event-body">
+                        <h5 class = "event-title">${event.title || "Untitled Event"}</h5>
+                        <p class = "event-date">${formatDateTime(event)}</p>
+                        <p class = "event-location">${event.location || "TBA"}</p>
+                        <p class = "event-description">${event.description || "No description available."}</p>
+                        <div class = "d-grid gap-2">
+                            <button type = "button" class = "btn btn-3ce" data-delete-id = "${event.id}">Delete</button>
+                        </div>
+                    </div>
+                </div>`;
+
+            eventList.insertAdjacentHTML("beforeend", eventCard);
+        }
+
+        eventList.querySelectorAll("[data-delete-id]").forEach(button => {
+            button.addEventListener("click", async () => {
+                try
+                {
+                    await deleteEvent(button.dataset.deleteId);
+                }
+                catch (error)
+                {
+                    console.error("Error deleting event:", error);
+                    window.alert(error.message);
+                }
+            });
+        });
+    }
+    catch (error)
+    {
+        console.error("Error loading events:", error);
+        eventList.innerHTML = '<p class="text-center text-danger w-100">Unable to load events right now.</p>';
+    }
+}
+
+if (isAuthenticated)
+    loadEvents();
