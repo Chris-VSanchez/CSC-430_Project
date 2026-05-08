@@ -1,0 +1,25 @@
+> removed unneccessary html changes; see below
+> retained <script> tag for supabase server connection linking purposes
+> registration.html 'sign in' <a> tag redirects to login.html
+    > added 'id' attribute to <form> tags when creating account
+    > removed majority of copilot assistance code
+    > added 'type' attribute to <button> for creating account
+    > added 'id' attribute to <button> for creating account
+    > removed button for sign in; redundancy
+    > retained 'authStatus' attribute <p> tag for confirmation feedback and testing
+        # NEED TO REMOVE on live branch
+    > added registration.js script to work in tandem with /Supabase and /Supabase/Server files
+    > retained 'logoutBtn' attribute <button> tag for confirmation feedback and testing
+> folder structure more managable and understandable
+    > removed ../frontend directory
+    > removed ../backend directory
+        > removed ../backend/controllers directory
+        > removed ../backend/middleware directory
+        > removed ../backend/routes directory
+    > removed ../sql directory and files
+    > added ../Supabase directory
+        > added ../Supabase/Server directory
+> removed .env private key variables due to security concerns
+    > added warning for future
+> supabaseClient.js rewritten to accomodate for private key changes
+> TODO supabase email verification redirect to login.html rather than registration.html

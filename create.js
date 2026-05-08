@@ -15,6 +15,28 @@ Object.values(inputs).forEach(input => { input.addEventListener("input", updateP
 
 // Modal View and Updater
 const eventModal = new bootstrap.Modal(document.getElementById("previewModal"), { focus: false });
+const SESSION_KEY = "3ce_supabase_session";
+const SUPABASE_URL = "https://wvcrlyrdahimcennyhec.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind2Y3JseXJkYWhpbWNlbm55aGVjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMTYwNTYsImV4cCI6MjA5MTU5MjA1Nn0.Lk5otEqUcyJvlxX3HrSbqsTfVvdpqhAvgzMl35pUcIE";
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+function getSession()
+{
+    return JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+}
+
+function requireSession()
+{
+    if (!getSession())
+    {
+        window.location.href = "registration.html";
+        return false;
+    }
+
+    return true;
+}
+
+requireSession();
 
 const preview = 
 {
@@ -72,6 +94,39 @@ function showModal()
     eventModal.show();
 }
 
+function buildEventDate()
+{
+    if (!inputs.date.value)
+        return "";
+
+    if (!inputs.time.value)
+        return inputs.date.value;
+
+    return `${inputs.date.value}T${inputs.time.value}:00`;
+}
+
+async function createEventOnServer(eventData)
+{
+    const session = getSession();
+    if (!session?.user?.id) throw new Error("User not authenticated");
+
+    const { data, error } = await supabaseClient
+        .from("events")
+        .insert([{
+            title: eventData.title,
+            description: eventData.description,
+            event_date: eventData.event_date,
+            location: eventData.location,
+            image: eventData.image,
+            user_id: session.user.id
+        }])
+        .select()
+        .single();
+
+    if (error) throw new Error(error.message || "Unable to create event");
+    return data;
+}
+
 function updatePreview()
 {
 // Get form data
@@ -106,4 +161,32 @@ document.getElementById("previewModal").addEventListener("hidden.bs.modal", () =
 
 // Reset image
     preview.image.src = "";
+});
+
+userForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const payload = {
+        title: inputs.title.value.trim(),
+        description: inputs.description.value.trim(),
+        event_date: buildEventDate()
+    };
+
+    if (!payload.title || !payload.event_date)
+    {
+        window.alert("Please enter an event title and date before creating it.");
+        return;
+    }
+
+    try
+    {
+        await createEventOnServer(payload);
+        window.alert("Event created successfully.");
+        window.location.href = "events.html";
+    }
+    catch (error)
+    {
+        console.error("Error creating event:", error);
+        window.alert(error.message);
+    }
 });
