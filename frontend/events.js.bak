@@ -94,44 +94,6 @@ async function deleteEvent(id)
     await loadEvents();
 }
 
-async function editEvent(id)
-{
-    try
-    {
-        const eventData = await getEvent(id);
-
-        const title = window.prompt("Event title:", eventData.title || "");
-        if (title === null) return;
-
-        const eventDate = window.prompt("Event date/time (YYYY-MM-DD or YYYY-MM-DDTHH:MM):", eventData.event_date || "");
-        if (eventDate === null) return;
-
-        const location = window.prompt("Location:", eventData.location || "");
-        if (location === null) return;
-
-        const description = window.prompt("Description:", eventData.description || "");
-        if (description === null) return;
-
-        const image = window.prompt("Image URL:", eventData.image || "");
-        if (image === null) return;
-
-        await updateEvent(id, {
-            title: title.trim(),
-            event_date: eventDate.trim(),
-            location: location.trim(),
-            description: description.trim(),
-            image: image.trim()
-        });
-
-        await loadEvents();
-    }
-    catch (error)
-    {
-        console.error("Error editing event:", error);
-        window.alert(error.message);
-    }
-}
-
 async function loadEvents()
 {
     eventList.innerHTML = "";
@@ -186,12 +148,6 @@ async function loadEvents()
                     console.error("Error deleting event:", error);
                     window.alert(error.message);
                 }
-            });
-        });
-
-        eventList.querySelectorAll("[data-edit-id]").forEach(button => {
-            button.addEventListener("click", async () => {
-                await editEvent(button.dataset.editId);
             });
         });
     }

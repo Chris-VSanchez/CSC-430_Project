@@ -169,7 +169,9 @@ userForm.addEventListener("submit", async (event) => {
     const payload = {
         title: inputs.title.value.trim(),
         description: inputs.description.value.trim(),
-        event_date: buildEventDate()
+        event_date: buildEventDate(),
+        location: inputs.location.value.trim(),
+        image: inputs.image.value.trim()
     };
 
     if (!payload.title || !payload.event_date)
