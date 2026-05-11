@@ -181,7 +181,16 @@ body
 /* Sign Up Section */
 .signup-image 
 {
-    background: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622') no-repeat center center;
+    background: url('../Images/Sign\ Up.jpg') no-repeat center center;
+    background-size: cover;
+
+    min-height: 250px;
+}
+
+/* Sign In Section */
+.signin-image
+{
+    background: url('../Images/Sign\ In.avif') no-repeat center center;
     background-size: cover;
 
     min-height: 250px;

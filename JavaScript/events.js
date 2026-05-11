@@ -4,7 +4,7 @@ async function loadEvents()
 {
     try
     {
-        const response = await fetch("events.json");
+        const response = await fetch("../JavaScript/events.json");
         const events = await response.json();
     
         for( const event of events)
