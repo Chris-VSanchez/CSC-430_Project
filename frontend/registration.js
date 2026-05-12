@@ -36,8 +36,8 @@ async function saveSession()
 async function signUp()
 {
     const email = emailInput.value.trim();
-    const password = passwordInput.value;
-    const confirmPassword = confirmPasswordInput.value;
+    const password = passwordInput.value.trim();
+    const confirmPassword = confirmPasswordInput.value.trim();
 
     if (!email || !password)
     {
@@ -69,7 +69,7 @@ async function signUp()
 async function signIn()
 {
     const email = emailInput.value.trim();
-    const password = passwordInput.value;
+    const password = passwordInput.value.trim();
 
     if (!email || !password)
     {
