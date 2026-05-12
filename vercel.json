@@ -1,0 +1,29 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/frontend/index.html",
+      "permanent": false
+    },
+    {
+      "source": "/index.html",
+      "destination": "/frontend/index.html",
+      "permanent": false
+    },
+    {
+      "source": "/events.html",
+      "destination": "/frontend/events.html",
+      "permanent": false
+    },
+    {
+      "source": "/create.html",
+      "destination": "/frontend/create.html",
+      "permanent": false
+    },
+    {
+      "source": "/registration.html",
+      "destination": "/frontend/registration.html",
+      "permanent": false
+    }
+  ]
+}

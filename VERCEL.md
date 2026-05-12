@@ -25,9 +25,10 @@ This app is now configured for Vercel. The frontend uses Supabase SDK directly (
 
 4. **Set project settings in Vercel**
    - Framework Preset: Other
-   - Root Directory: `frontend`
+   - Root Directory: leave as the repo root
    - Build Command: leave empty
    - Output Directory: leave empty
+   - The included `vercel.json` redirects `/` to `frontend/index.html` and maps the top-level HTML pages into the frontend folder
 
 5. **Deploy**
    - Click "Deploy"
@@ -40,7 +41,7 @@ This app is now configured for Vercel. The frontend uses Supabase SDK directly (
 
 ## Architecture
 
-- **Frontend**: `frontend/` contains all HTML, CSS, JS files. Vercel serves this folder directly.
+- **Frontend**: `frontend/` contains all HTML, CSS, JS files. Vercel serves the app through redirect rules in `vercel.json`.
 - **Auth**: Supabase (email/password via `registration.html`)
 - **Database**: Supabase (Postgres) with RLS policies so users only see their own events
 - **Backend**: None needed. Frontend talks directly to Supabase.
