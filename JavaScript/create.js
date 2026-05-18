@@ -183,3 +183,10 @@ document.getElementById("previewModal").addEventListener("hidden.bs.modal", () =
     preview.description.textContent = "Your event description will appear here.";
     preview.image.src = "";
 });
+supabaseClient.auth.getSession().then(async ({ data }) => {
+    if (data.session)
+    {
+        localStorage.setItem(SESSION_KEY, JSON.stringify(data.session));
+        document.getElementById("navbarName").innerHTML = `${data.session.user.email}`;
+    }
+});
