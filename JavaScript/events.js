@@ -39,7 +39,7 @@ async function loadEvents() {
 // RENDER EVENTS
 // -----------------------------
 function renderEvents(events) {
-    const container = document.getElementById("eventsContainer");
+    const container = document.getElementById("events");
     container.innerHTML = "";
 
     if (!events.length) {
