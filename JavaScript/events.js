@@ -53,23 +53,18 @@ function renderEvents(events) {
         const card = document.createElement("div");
         card.className = "event-card";
 
-        card.innerHTML = `
-            <img src="${event.image || 'default.jpg'}" class="event-img" />
-
-            <h3>${event.title}</h3>
-            <p><strong>Date:</strong> ${new Date(event.event_date).toLocaleString()}</p>
-            <p><strong>Location:</strong> ${event.location}</p>
-            <p>${event.description}</p>
-
-            <div class="event-actions">
-                ${session ? `<button class="join-btn">Join Event</button>` 
-                          : `<button class="login-btn">Login to Join</button>`}
-
-                ${isOwner ? `
-                    <button class="edit-btn" data-id="${event.id}">Edit</button>
-                    <button class="delete-btn" data-id="${event.id}">Delete</button>
-                ` : ""}
+        card.innerHTML =
+        `
+        <div class = "event-card">
+            <img class = "event-image" src = "${event.image || ""}">
+            <div class = "event-body">
+                <h5 class = "event-title">${event.title}</h5>
+                <p class = "event-date"> ${new Date(event.event_date).toLocaleString()}</p>
+                <p class = "event-location"> ${event.location || "TBA"}</p>
+                <p class = "event-description">${event.description || "No description available."}</p>
+                <a href="#" class="btn btn-3ce w-100">View Details</a>
             </div>
+        </div>
         `;
 
         container.appendChild(card);
