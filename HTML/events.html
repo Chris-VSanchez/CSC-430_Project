@@ -14,15 +14,15 @@
         <script src = "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
         <!-- Sylesheets -->
-        <link href = "CSS/style.css" rel = "stylesheet">
-        <link href = "CSS/events.css" rel = "stylesheet">
+        <link href = "../CSS/style.css" rel = "stylesheet">
+        <link href = "../CSS/events.css" rel = "stylesheet">
+
+        <!-- Supabase Library -->
+        <script src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
         <!-- Title and Favicon-->
         <title>430 | Events</title>
-        <link href = "./Menu Icons/3CE.svg" rel = "icon">
-
-        <!-- Supabase Client -->
-        <script src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <link href = "../Menu Icons/3CE.svg" rel = "icon">
 
     </head>
 
@@ -33,8 +33,8 @@
             <div class = "container-fluid">
 
                 <!-- Logo and Brand Name -->
-                <a class = "navbar-brand d-flex align-items-center" href = "index.html">
-                    <img src = "Menu Icons/3CE.svg" class = "logo me-2">
+                <a class = "navbar-brand d-flex align-items-center" href = "../index.html">
+                    <img src = "../Menu Icons/3CE.svg" class = "logo me-2">
                     3CE RSVP
                 </a>
 
@@ -46,7 +46,7 @@
                 <div class = "collapse navbar-collapse" id = "toggleMobileMenu">
                     <ul class = "navbar-nav ms-auto gap-lg-1">
 
-                        <li><a class = "nav-link" href = "index.html">Home</a></li>
+                        <li><a class = "nav-link" href = "../index.html">Home</a></li>
                         <li><a class = "nav-link active" href = "events.html">Events</a></li>
                         <li><a class = "nav-link" href = "create.html">Create</a></li>
                         <li><a class = "nav-link btn-3ce active" href = "registration.html">Sign Up</a></li>
@@ -58,7 +58,7 @@
         </nav>
 
         <!-- Header -->
-        <section class = "hero-background" style = "background-image: url('Images/Events Hero.jpg')">
+        <section class = "hero-background" style = "background-image: url('../Images/Events\ Hero.jpg')">
             <div class = "hero-card">
             
                 <h1 class = "hero-title">Explore Events, Workshops, and Meetups</h1>
@@ -74,8 +74,7 @@
         <section class = "pb-5">
             <div class = "container-fluid">
 
-                <div class="event-grid" id="eventsContainer"></div>
-
+                <div class = "event-grid" id = "events"></div>
 
             </div>
         </section>
@@ -86,7 +85,7 @@
         </footer>
 
         <!-- Script -->
-        <script src = "events.js"></script>
+        <script src = "../JavaScript/events.js"></script>
         
     </body>
 
