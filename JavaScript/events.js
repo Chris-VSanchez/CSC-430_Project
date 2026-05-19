@@ -7,27 +7,85 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-function getSession() {
-    return JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+let currentUserId = null;
+
+function getSession()
+{
+    return JSON.parse(
+        localStorage.getItem(SESSION_KEY) || "null"
+    );
 }
 
-const session = getSession();
-if (session) {
-    supabaseClient.auth.setSession(session);
-}
+// -----------------------------
+// INIT
+// -----------------------------
+async function init() 
+{
+    try
+    {
+        // Restore saved session
+        const savedSession = getSession();
 
-const currentUserId = session?.user?.id || null;
+        if( savedSession)
+        {
+            const { error } = await supabaseClient.auth.setSession(savedSession);
+
+            if( error)
+            {
+                console.error(
+                    "Session restore failed:",
+                    error.message
+                );
+            }
+        }
+
+        // Get active session from Supabase
+        const { data: { session } } = await supabaseClient.auth.getSession();
+
+        // User logged in
+        if( session)
+        {
+            // Save latest session
+            localStorage.setItem(
+                SESSION_KEY,
+                JSON.stringify(session)
+            );
+
+            // Save user id globally
+            currentUserId = session.user.id;
+
+            // Update navbar
+            const navbarName = document.getElementById("navbarName");
+
+            if( navbarName)
+                navbarName.innerHTML = session.user.email;
+        }
+
+        // Load events
+        await loadEvents();
+    }
+    
+    catch( err)
+    {
+        console.error("Init failed:", err);
+    }
+}
 
 // -----------------------------
 // LOAD EVENTS
 // -----------------------------
-async function loadEvents() {
+async function loadEvents() 
+{
     const { data: events, error } = await supabaseClient
         .from("events")
         .select("*")
         .order("event_date", { ascending: true });
 
-    if (error) {
+    console.log("EVENTS:", events);
+    console.log("ERROR:", error);
+
+    if( error) 
+    {
         console.error("Error loading events:", error);
         return;
     }
@@ -38,12 +96,17 @@ async function loadEvents() {
 // -----------------------------
 // RENDER EVENTS
 // -----------------------------
-function renderEvents(events) {
+function renderEvents(events) 
+{
     const container = document.getElementById("events");
     container.innerHTML = "";
 
-    if (!events.length) {
-        container.innerHTML = "<p>No events found.</p>";
+    if( !events.length) 
+    {
+        container.innerHTML = 
+        `   <p style = "text-align: center;">
+                No events found.
+            </p> `;
         return;
     }
 
@@ -53,19 +116,28 @@ function renderEvents(events) {
         const card = document.createElement("div");
         card.className = "event-card";
 
-        card.innerHTML =
-        `
-        <div class = "event-card">
-            <img class = "event-image" src = "${event.image || ""}">
-            <div class = "event-body">
-                <h5 class = "event-title">${event.title}</h5>
-                <p class = "event-date"> ${new Date(event.event_date).toLocaleString()}</p>
-                <p class = "event-location"> ${event.location || "TBA"}</p>
-                <p class = "event-description">${event.description || "No description available."}</p>
-                <a href="#" class="btn btn-3ce w-100">View Details</a>
-            </div>
-        </div>
-        `;
+        card.innerHTML = 
+        `   <img class="event-image" src="${event.image || ""}">
+    
+            <div class="event-body">
+                <h5 class="event-title">${event.title}</h5>
+
+                <p class="event-date">
+                    ${new Date(event.event_date).toLocaleString()}
+                </p>
+
+                <p class="event-location">
+                    ${event.location || "TBA"}
+                </p>
+
+                <p class="event-description">
+                    ${event.description || "No description available."}
+                </p>
+
+                <a href="#" class="btn btn-3ce w-100">
+                    View Details
+                </a>
+            </div>  `;
 
         container.appendChild(card);
     });
@@ -121,15 +193,8 @@ function attachEventListeners() {
         });
     });
 }
-supabaseClient.auth.getSession().then(async ({ data }) => {
-    if (data.session)
-    {
-        localStorage.setItem(SESSION_KEY, JSON.stringify(data.session));
-        document.getElementById("navbarName").innerHTML = `${data.session.user.email}`;
-    }
-});
 
 // -----------------------------
-// INIT
+// Start App
 // -----------------------------
-loadEvents();
+init();

@@ -93,13 +93,15 @@ body
     justify-content: center;
     align-items: center;
 
-    max-height: 50vh;
+    min-height: 50vh;
 
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
 
     padding: 3rem 1rem;
+
+    overflow: hidden;
 }
 
 .hero-card
