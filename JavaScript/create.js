@@ -93,10 +93,16 @@ function showModal() {
     eventModal.show();
 }
 
-function buildEventDate() {
-    if (!inputs.date.value) return "";
-    if (!inputs.time.value) return inputs.date.value;
-    return `${inputs.date.value}T${inputs.time.value}:00`;
+function buildEventDate() 
+{
+     if( !inputs.date.value || !inputs.time.value)
+        return "";
+
+    // Build local date and time (In EST)
+    const localDateTime = new Date(`${inputs.date.value}T${inputs.time.value}:00`);
+
+    // Convert to proper UTC ISO string
+    return localDateTime.toISOString();
 }
 
 // -----------------------------

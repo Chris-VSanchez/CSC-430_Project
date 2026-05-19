@@ -120,21 +120,35 @@ function renderEvents(events)
         `   <img class="event-image" src="${event.image || ""}">
     
             <div class="event-body">
-                <h5 class="event-title">${event.title}</h5>
+                <h5 class = "event-title">${event.title}</h5>
 
-                <p class="event-date">
-                    ${new Date(event.event_date).toLocaleString()}
+                <p class = "event-date">
+                    ${ new Date(event.event_date).toLocaleDateString("en-US",
+                        {
+                            timeZone: "America/New_York",
+                            dateStyle: "medium"
+                        })
+                    }
+
+                    •
+
+                    ${ new Date(event.event_date).toLocaleTimeString("en-US",
+                        {
+                            timeZone: "America/New_York",
+                            timeStyle: "short"
+                        })
+                    }
                 </p>
 
-                <p class="event-location">
+                <p class = "event-location">
                     ${event.location || "TBA"}
                 </p>
 
-                <p class="event-description">
+                <p class = "event-description">
                     ${event.description || "No description available."}
                 </p>
 
-                <a href="#" class="btn btn-3ce w-100">
+                <a class = "btn btn-3ce w-100">
                     View Details
                 </a>
             </div>  `;
